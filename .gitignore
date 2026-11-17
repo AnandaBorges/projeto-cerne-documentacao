@@ -1,0 +1,10 @@
+# Instaladores do Windows
+*.exe
+
+# Arquivos temporários
+*.log
+*.tmp
+
+# Credenciais e configurações privadas
+.env
+.env.*
