@@ -1,64 +1,49 @@
-# 06 - Cronograma e Etapas de Desenvolvimento
+# 06 - Cronograma e Etapas de Desenvolvimento (Scrum)
 
 ## 1. Visão Temporal Comparativa
 
-O desenvolvimento do projeto divide-se em dois horizontes de tempo formalmente delimitados no checklist:
+O desenvolvimento do projeto divide-se em dois horizontes temporais formais:
 
 1. **Ciclo Global Institucional do Projeto (31 Meses – Abril/2026 a Outubro/2028):**
-   * Abrange o ciclo completo desde a pesquisa preliminar até os testes de campo expandidos, transferência de tecnologia e o depósito de registro de software junto ao INPI pela UNIFAL-MG.
-2. **Ciclo de Desenvolvimento da Equipe de Alunos (3 Meses / 13 Semanas – 19/11/2026 a 19/02/2027):**
-   * Concentra-se na entrega de uma **primeira versão funcional** operacional de ponta a ponta (Passos 1 a 9 do checklist).
+   * Abrange o ciclo completo de pesquisa, testes de campo expandidos (NidusTec e CEFET), maturidade TRL 7 e o depósito de registro de software junto ao INPI pela UNIFAL-MG.
+2. **Ciclo de Desenvolvimento da Equipe (3 Meses / 13 Semanas – 19/11/2026 a 19/02/2027):**
+   * Organizado sob o framework ágil **Scrum**, estruturado em **6 Sprints quinzenais**, focado na entrega da primeira versão funcional completa na nova arquitetura (Next.js + Django REST + PostgreSQL Neon).
 
 ---
 
-## 2. Cronograma Detalhado da Primeira Versão Funcional (19/11/2026 a 19/02/2027)
+## 2. Planejamento das Sprints da Primeira Versão Funcional
 
-| Período | Etapa / Passos | Foco de Trabalho | Entrega da Semana (Marco) |
-| :--- | :--- | :--- | :--- |
-| **19/11 a 25/11/2026** | **Passos 1 e 2** | Compreensão do modelo CERNE, alinhamento com a coordenação e instalação do ambiente técnico (Git, JDK 21 LTS, IDE, Maven, JavaFX e Neo4j local). | Problema compreendido e ambiente local operacional. |
-| **26/11 a 02/12/2026** | **Passo 3** | Aprendizado de Cypher e modelagem da taxonomia do CERNE no banco em grafo ("oceano pacífico"). | Níveis, processos e práticas persistidos e consultáveis no Neo4j. |
-| **03/12 a 09/12/2026** | **Passo 4** | Configuração da classe de conexão Java com driver oficial do Neo4j e isolamento de credenciais. | Java conectado ao Neo4j, imprimindo contagem conferida de práticas. |
-| **10/12 a 23/12/2026** | **Passo 5** | Concepção do diagrama de classes UML do zero, revisão com orientadora e codificação das classes de domínio. | Diagrama de classes aprovado pela orientadora e classes compiladas. |
-| **24/12 a 13/01/2027** | **Passo 6** | *Ritmo ajustado (recesso de festas):* Criação de planilha modelo Google Sheets, exportação CSV e pipeline de ingestão no Java/Neo4j. | Pelo menos 30 ações de teste cadastradas no banco sem nós duplicados. |
-| **14/01 a 20/01/2027** | **Passo 7** | Escrita de consultas Cypher para contagem de evidências por prática (com `OPTIONAL MATCH`) e validação analítica. | Contagem do sistema idêntica à conferência manual em planilha. |
-| **21/01 a 03/02/2027** | **Passo 8** | Construção da primeira interface JavaFX exibindo a grade de práticas, cores de destaque para lacunas e gráfico do tipo radar. | Primeira tela funcional com dados reais e gráfico radar renderizado. |
-| **04/02 a 10/02/2027** | **Passo 9** | Estruturação de vocabulário de TAGs em linguagem simples e motor de regras para classificação determinística de ações. | Classificação assistida por regras sugerindo práticas com alta taxa de acerto. |
-| **11/02 a 19/02/2027** | **Finalização** | Bateria de testes de aceitação, consolidação da documentação técnica e apresentação final da versão funcional. | **Versão final funcional entregue e demonstrada.** |
+```
++-----------+    +-----------+    +-----------+    +-----------+    +-----------+    +-----------+
+| SPRINT 1  | -> | SPRINT 2  | -> | SPRINT 3  | -> | SPRINT 4  | -> | SPRINT 5  | -> | SPRINT 6  |
+| Ambientes |    | Domínio   |    | API REST  |    | Frontend  |    | Radar e   |    | Testes E2E|
+| e Neon BD |    | e TDD     |    | e Ingestão|    | Next.js   |    | Equação 1 |    | e Entrega |
++-----------+    +-----------+    +-----------+    +-----------+    +-----------+    +-----------+
+```
+
+| Sprint | Período | Objetivo da Sprint (Sprint Goal) | Principais Entregáveis (Incremento Funcional) |
+| :---: | :--- | :--- | :--- |
+| **Sprint 1** | **19/11 a 02/12/2026** | Setup da infraestrutura em nuvem, arquitetura base Django/Clean Arch e taxonomia CERNE no Neon. | • Banco Neon PostgreSQL configurado com connection pooling.<br>• Estrutura de pastas Clean Architecture no Django.<br>• Suíte inicial Pytest configurada.<br>• DDL e Migrations de Níveis, Processos e Práticas executadas.<br>• Seed inicial com as 29 práticas de referência. |
+| **Sprint 2** | **03/12 a 16/12/2026** | Construção do Domínio Rico via TDD e persistência da transversalidade. | • Entidades puras Python (`Acao`, `Pratica`, `Evidencia`, `Empresa`) com testes unitários (>90% cobertura).<br>• Casos de uso de cadastro de ações e associação de evidências.<br>• Repositórios Django ORM implementando as interfaces do domínio.<br>• Suporte estrito à transversalidade $1:N$. |
+| **Sprint 3** | **17/12 a 30/12/2026** | Desenvolvimento da API REST, documentação OpenAPI e ingestão de dados. | • Endpoints REST (Django Ninja / DRF) para Ações, Práticas e Indicadores.<br>• Autenticação JWT com controle de perfis (Admin, Operador, Auditor).<br>• Pipeline de importação em lote via CSV com validação de duplicatas.<br>• Pelo menos 30 ações de teste cadastradas e verificadas no Neon. |
+| **Sprint 4** | **31/12 a 13/01/2027** | Conexão do Frontend Next.js na Vercel com formulários e listagem de práticas. | • Setup do Next.js 14+ com Tailwind CSS e componentes shadcn/ui na Vercel.<br>• Integração cliente-servidor via HTTPS com o backend no PythonAnywhere.<br>• Formulário web responsivo para cadastro de ações com validação Zod.<br>• Tabela interativa das práticas exibindo total de evidências (incluindo 0). |
+| **Sprint 5** | **14/01 a 27/01/2027** | Visualização gráfica interativa (Radar) e cálculo da Equação [1] de similaridade. | • Gráfico do tipo Radar por Nível (Recharts) integrado à interface.<br>• Código de cores visual para práticas deficitárias (sem evidências).<br>• Implementação da Equação [1] (distância euclidiana a partir de TAGs).<br>• Sugestão automática de práticas para novas ações por motor de regras. |
+| **Sprint 6** | **28/01 a 19/02/2027** | Bateria de testes de homologação, refinamentos de UX e apresentação final. | • Testes de integração de ponta a ponta (E2E) e testes de carga leve.<br>• Auditoria de conformidade com o checklist de requisitos.<br>• Manual de usuário e documentação técnica consolidada.<br>• Apresentação formal da versão funcional homologada para a orientadora. |
 
 ---
 
-## 3. Delimitação Clara: Versão Funcional vs. Etapas Posteriores
+## 3. Cerimônias e Ritos da Equipe Scrum
 
-Para assegurar o cumprimento rigoroso dos prazos, as entregas ficam categorizadas da seguinte forma:
-
-```
-[ PRIMEIRA VERSÃO FUNCIONAL ]                    [ ETAPAS POSTERIORES ]
-Prazo limite: 19/02/2027                         Ciclo Estendido (Fases 2, 3 e 4)
----------------------------------------          --------------------------------------
-* Banco Neo4j estruturado ("oceano pacífico")    * Treinamento e tuning da Rede Neural
-* Pipeline de ingestão via CSV / Sheets          * Análise preditiva histórica (Chen et al.)
-* Mapeamento POO (Cerne1 a Cerne4)               * Módulos avançados (Seções 10 e 11)
-* Cálculo automático de indicadores              * Módulo completo Laboratório Maker
-* Interface JavaFX com lista e gráfico radar     * Piloto expandido no CEFET e NidusTec
-* Classificação preliminar baseada em regras     * Depósito de registro de software no INPI
-```
+* **Sprint Planning (Quinzenal – 2h):** Definição do Sprint Goal e seleção das histórias do Product Backlog com pontuação em *Story Points*.
+* **Daily Scrum (Diária – 15min):** Alinhamento síncrono ou assíncrono: o que realizei ontem, o que realizarei hoje e quais impedimentos bloqueiam o avanço.
+* **Sprint Review (Quinzenal – 1h):** Demonstração do incremento funcional de software em funcionamento para a Product Owner (orientadora).
+* **Sprint Retrospective (Quinzenal – 45min):** Análise do processo de desenvolvimento, lições aprendidas e melhorias operacionais para a sprint seguinte.
 
 ---
 
 ## 4. Fases Estratégicas do Projeto Global (Mês 1 a Mês 31)
 
-O plano de longo prazo da etapa 1.1 define quatro fases sequenciais:
-
-1. **Fase 1 – Análise e Adaptação:** Revisão de requisitos com a equipe da incubadora, definição do modelo em grafo no Neo4j e back-end Java com pipeline de dados funcionais.
-2. **Fase 2 – Aprimoramento dos Algoritmos:** Treinamento da rede neural supervisionada, validação da normalização de pesos e execução de testes de desempenho documentados.
-3. **Fase 3 – Versão Beta:** Expansão operacional com implantação e coleta de feedback em campo no CEFET e na NidusTec (UNIFAL-MG).
-4. **Fase 4 – Ajustes Finais e Internacionalização:** Incorporação dos requisitos do CERNE IV, preparação do manual do usuário e depósito do registro de software no INPI pela UNIFAL-MG.
-
----
-
-## 5. Rotina de Trabalho e Boas Práticas da Equipe
-
-* **Reuniões Semanais de Ponto de Controle:** Reuniões curtas focadas em três perguntas: o que foi concluído, o que está travando o avanço e qual o compromisso para a próxima entrega.
-* **Governança de Versionamento (Git):** Criação de repositório privado compartilhado com toda a equipe; histórico construído por meio de commits pequenos, frequentes e com mensagens semânticas claras.
-* **Atualização Contínua da Documentação:** Manutenção contínua do `README.md` raiz com instruções claras de compilação, instalação e execução da aplicação em máquina local.
-* **Política Rígida de Segurança de Dados:** Proibição irrestrita de cometer senhas de banco de dados, chaves de API ou dados cadastrais e confidenciais de empreendedores.
+1. **Fase 1 – Análise e Adaptação (Mês 1 a 10):** Construção da primeira versão funcional web, validação inicial na NidusTec e conformidade com o modelo relacional.
+2. **Fase 2 – Aprimoramento e IA (Mês 11 a 20):** Substituição do motor de regras por Rede Neural supervisionada (*grounding*), análise preditiva de séries temporais (Chen et al., 2013) e módulo do Laboratório Maker (MAKERBot).
+3. **Fase 3 – Versão Beta e Validação de Campo (Mês 21 a 26):** Piloto operacional estendido no CEFET e NidusTec para atingir TRL 7.
+4. **Fase 4 – Ajustes Finais e Internacionalização (Mês 27 a 31):** Módulos do CERNE IV, preparação da documentação e submissão formal do registro de software junto ao INPI pela UNIFAL-MG.

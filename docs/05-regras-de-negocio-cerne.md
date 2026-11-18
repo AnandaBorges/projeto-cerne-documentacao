@@ -2,7 +2,7 @@
 
 ## 1. Fundamentos do Modelo CERNE (Anprotec)
 
-O **CERNE** (*Centro de Referência para Apoio a Novos Empreendimentos*) é uma metodologia e modelo de certificação e gestão de ambientes de inovação desenvolvido pela **Anprotec** (*Associação Nacional de Entidades Promotoras de Empreendimentos Inovadores*). Ele define quais processos e padrões uma incubadora necessita implementar para gerar sistematicamente empresas de sucesso.
+O **CERNE** (*Centro de Referência para Apoio a Novos Empreendimentos*) é uma metodologia e modelo de certificação e gestão de ambientes de inovação desenvolvido pela **Anprotec** (*Associação Nacional de Entidades Promotoras de Empreendimentos Inovadores*). Ele define quais processos e padrões uma incubadora necessita implementar para gerar sistematicamente empresas inovadoras de sucesso.
 
 ### Camadas Estruturais do Modelo
 O modelo organiza-se em camadas hierárquicas interconectadas:
@@ -17,12 +17,12 @@ O modelo organiza-se em camadas hierárquicas interconectadas:
 
 ## 2. A Tríade de Elementos-Chave de Cada Prática
 
-Toda prática, para ser considerada homologada e em conformidade, precisa comprovar a existência de 3 elementos constitutivos no sistema:
+Toda prática, para ser considerada homologada e em conformidade pelo sistema, precisa comprovar a existência de 3 elementos constitutivos:
 * **Procedimento:** Instrução de trabalho ou metodologia documentada que prescreve como a incubadora executa a prática passo a passo.
 * **Métrica:** Indicador objetivo que mensura se a prática está funcionando e gerando os resultados pretendidos.
 * **Aprendizado:** Registro da análise crítica periódica que avalia o desempenho da prática e implementa melhorias contínuas.
 
-*Exemplo Prático (1.1.1 - Sensibilização):*
+*Exemplo Prático no Domínio Rico (1.1.1 - Sensibilização):*
 * *Procedimento:* Plano anual de sensibilização contendo calendário formal de palestras e oficinas.
 * *Métrica:* Total de eventos realizados, total de participantes e taxa de propostas de novos negócios submetidas após os eventos.
 * *Aprendizado:* Reunião anual de avaliação para redimensionar temas e canais de divulgação do plano seguinte.
@@ -52,19 +52,16 @@ O modelo adota formalmente o ciclo **PDCA** (*Plan-Do-Check-Act*) como motor de 
 4. **Verificar:** Comparação entre o resultado obtido e a meta planejada.
 5. **Agir:** Registro dos aprendizados, correções de desvios e ajustes do processo para o ciclo seguinte.
 
-### O Princípio da Transversalidade
+### O Princípio da Transversalidade ($1:N$)
 No ecossistema de incubação, as ações raramente afetam apenas um indicador isolado:
 * **Exemplo 1 (Edital de Seleção):** Uma chamada de seleção comprova concomitantemente a Prática 1.2.1 (*Recepção de propostas* - edital e inscrições), Prática 1.2.2 (*Avaliação* - pareceres e ata da banca) e Prática 1.2.3 (*Contratação* - contratos celebrados).
 * **Exemplo 2 (Palestra Aberta):** Uma palestra com a comunidade gera evidências para a Prática 1.1.1 (*Sensibilização*) e simultaneamente para a Prática 3.1.1 (*Interação com o entorno*).
 
-O software proíbe o isolamento unívoco $1:1$, garantindo suporte total a esse comportamento $1:N$.
+No backend Django + PostgreSQL, essa regra é implementada pela entidade rica `Acao` e persistida via tabela associativa `acoes_praticas`.
 
 ---
 
-## 5. Tabela de Práticas-Chave (Referência Inicial CERNE 2018)
-
-> [!NOTE]
-> A relação abaixo detalha as 29 práticas do modelo CERNE 2018 dispostas no checklist como base de estudo e desenvolvimento preliminar. A estrutura e nomenclatura definitiva serão convalidadas assim que o *Manual de Implantação do CERNE 2025* for obtido.
+## 5. Tabela Canônica das 29 Práticas-Chave (Referência CERNE)
 
 | Nível | Código | Processo-Chave | Prática-Chave | O que a Incubadora Faz | Exemplos de Evidências Auditáveis |
 | :---: | :---: | :--- | :--- | :--- | :--- |
@@ -100,11 +97,11 @@ O software proíbe o isolamento unívoco $1:1$, garantindo suporte total a esse 
 
 ---
 
-## 6. Módulos de Operação e Rotinas Especializadas
+## 6. Módulos Operacionais Especializados e Laboratório Maker (MAKERBot)
 
-Conforme detalhado nas Seções 10 e 11 do checklist, o software incorpora regras específicas para as operações cotidianas da incubadora:
+Conforme detalhado nas Seções 10 e 11 do checklist original:
 * **Módulo de Eventos e Extensão:** Vinculação com formulários de inscrição e geração de métricas automáticas para prestação de contas acadêmicas (CAEX) e institucionais (DICOM).
-* **Módulo de Reserva de Espaços:** Gestão de agendas de salas de reunião e treinamento com resolução de concorrência/conflitos e integração com Google Agenda.
+* **Módulo de Reserva de Espaços:** Gestão de agendas de salas de reunião e treinamento com resolução de concorrência e integração com calendários corporativos.
 * **Módulo Especializado Laboratório Maker (MAKERBot):**
   * Segregação de solicitações entre uso interno (startups incubadas – Prática 1.3.2) e externo (empresas de mercado – Prática 2.2.2).
   * Algoritmo de cálculo de insumos (massa de filamento em gramas, área de MDF em mm² e desgaste de máquina).

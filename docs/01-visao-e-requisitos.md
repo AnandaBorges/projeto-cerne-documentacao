@@ -4,8 +4,8 @@
 
 * **Título do Projeto:** Sistema Integrado de Gerenciamento das Práticas CERNE para Ambientes de Inovação
 * **Coordenação Geral:** Profa. Dra. Izabella Carneiro Bastos (Professora Associada da Universidade Federal de Alfenas – UNIFAL-MG)
-* **Situação Atual:** O projeto inicia-se estritamente do zero. Não há código-fonte pré-existente, protótipo funcional, base de dados ou planilhas prontas. Banco de dados, planilhas de coleta, interfaces e dados simulados de teste devem ser construídos integralmente pela equipe técnica.
-* **Contexto Institucional:** A incubadora NidusTec (UNIFAL-MG) adotou o modelo CERNE e conquistou a certificação **CERNE 1** em 2022. O sistema é concebido para operacionalizar e consolidar a gestão dessas práticas e apoiar a incubadora na progressão para os níveis subsequentes (CERNE 2, 3 e 4).
+* **Situação Atual:** O projeto inicia-se estritamente do zero. Não há código-fonte pré-existente, protótipo funcional, base de dados ou formulários operacionais. Banco de dados relacional, formulários web, componentes de interface, endpoints REST e dados simulados de teste devem ser construídos integralmente pela equipe técnica.
+* **Contexto Institucional:** A incubadora NidusTec (UNIFAL-MG) adotou o modelo CERNE e conquistou a certificação **CERNE 1** em 2022. O sistema é concebido para operacionalizar, automatizar e consolidar a gestão dessas práticas e apoiar a incubadora na progressão para os níveis subsequentes (CERNE 2, 3 e 4).
 
 ## 2. Problema e Justificativa
 
@@ -15,40 +15,42 @@ Atualmente, o controle e monitoramento das práticas nas incubadoras universitá
 * **Invisibilidade da transversalidade:** Dificuldade em identificar quando uma mesma atividade ou evento comprova simultaneamente múltiplos processos e práticas.
 * **Curva de aprendizado íngreme:** Equipes recém-integradas não sabem como classificar ações cotidianas dentro dos indicadores formais do CERNE.
 
-O software visa solucionar esses gargalos fornecendo escalabilidade, eliminação de duplicidades, classificação assistida e análise em tempo real da transversalidade entre práticas.
+O software visa solucionar esses gargalos fornecendo escalabilidade, eliminação de duplicidades, classificação assistida e análise em tempo real da transversalidade entre práticas através de uma arquitetura web moderna, robusta e orientada a domínio.
 
 ## 3. Objetivos, Metas e Entregáveis
 
-* **Objetivo Geral:** Construir um sistema gerenciador de banco de dados (SGBD) integrado, com interface amigável e inteligência de classificação, capaz de monitorar automaticamente os indicadores atômicos das práticas-chave do modelo CERNE.
+* **Objetivo Geral:** Construir um sistema web completo e desacoplado, com backend em **Python + Django (API REST)** estruturado sob **Clean Architecture, DDD (Domain-Driven Design), Domínio Rico e TDD**, banco de dados **PostgreSQL hospedado no Neon**, e interface web em **Next.js, Tailwind CSS e shadcn/ui** com deploy na **Vercel**, capaz de monitorar automaticamente os 29 indicadores atômicos das práticas-chave do modelo CERNE.
 * **Meta de Prontidão Tecnológica:** Atingir o nível **TRL 6**, idealmente **TRL 7** (sistema validado em ambiente operacional real, com testes de homologação previstos na NidusTec/UNIFAL-MG e no CEFET).
 * **Entregável Final de Propriedade Intelectual:** Registro de 1 software de computador no INPI sob a especificação *"Software para apoio parcial à gestão em inovação"*, cujo depósito oficial será efetuado pela UNIFAL-MG.
 * **Horizonte Temporal:**
-  * *Prazo da equipe de desenvolvimento (alunos):* 3 meses (19/11/2026 a 19/02/2027) focado na entrega da primeira versão funcional.
+  * *Prazo da equipe de desenvolvimento (alunos):* 3 meses (19/11/2026 a 19/02/2027) estruturado no framework ágil **Scrum** (6 Sprints quinzenais) focado na entrega da primeira versão funcional.
   * *Ciclo global do projeto institucional:* 31 meses (abril de 2026 a outubro de 2028).
 
 ---
 
-## 4. Separação de Escopo do Projeto
+## 4. Separação de Escopo do Projeto (Visão Scrum)
 
-Para garantir a viabilidade técnica e a execução dentro dos prazos, o escopo do projeto está formalmente dividido em duas fases distintas:
+Para assegurar a viabilidade técnica e a entrega contínua de valor, o escopo está organizado em dois grandes horizontes:
 
-### Escopo da Primeira Versão Funcional (Prazo: 19/02/2027)
-Foco nos **Passos 1 a 9** do checklist, assegurando um fluxo operacional de ponta a ponta:
-1. Modelagem e persistência no banco em grafo (Neo4j) da hierarquia do CERNE (níveis, processos e práticas como dados editáveis).
-2. Conexão do back-end em Java (JDK 21) ao Neo4j via driver oficial.
-3. Criação do diagrama de classes e implementação da estrutura básica orientada a objetos (`Pratica`, `Nivel`, `Acao`, `Evidencia`, `Empresa`, `Tag`).
-4. Pipeline inicial de coleta via planilha Google Sheets modelo, com importação via arquivo CSV e cadastro de no mínimo 30 ações de teste sem duplicatas.
-5. Contagem automática de evidências por prática via consultas Cypher, validada contra conferência manual.
-6. Interface gráfica preliminar em JavaFX exibindo a listagem de práticas, alertas visuais coloridos para práticas sem evidência e representação gráfica do tipo radar.
-7. Classificação preliminar de ações através de motor determinístico baseado em vocabulário padronizado de TAGs (sem IA na versão inicial).
+### 4.1. Escopo da Primeira Versão Funcional (Prazo: 19/02/2027 – Sprints 1 a 6)
+Foco nos requisitos essenciais que garantem um fluxo operacional de ponta a ponta:
+1. Modelagem relacional completa e persistência no **PostgreSQL (Neon)** da taxonomia do CERNE (níveis, processos e práticas como dados editáveis).
+2. Construção do núcleo de **Domínio Rico** em Python puro (entidades, agregados, objetos de valor e serviços de domínio) guiado estritamente por **TDD** (*Test-Driven Development*).
+3. Implementação dos Casos de Uso na camada de Aplicação e Repositórios na camada de Infraestrutura integrados ao ORM do Django.
+4. Exposição de API REST documentada (OpenAPI/Swagger) no Django com deploy no **PythonAnywhere**.
+5. Interface web responsiva em **Next.js, Tailwind CSS e shadcn/ui** com deploy na **Vercel**, contendo formulários de cadastro e importação em lote via CSV.
+6. Cadastro e validação de no mínimo 30 ações de teste sem duplicatas.
+7. Contagem automática de evidências por prática via consultas relacionais otimizadas (garantindo a contabilização de práticas com zero evidências).
+8. Visualização gráfica interativa com destaque para práticas deficitárias e renderização do gráfico do tipo radar por nível.
+9. Motor heurístico preliminar de classificação assistida baseado em vocabulário padronizado de TAGs.
 
-### Escopo das Etapas Posteriores (Pós-19/02/2027 e Ciclo Global até Mês 31)
-Funcionalidades que ficam para etapas posteriores caso o prazo da primeira versão não comporte sua implementação:
-1. Treinamento e avaliação da **Rede Neural** supervisionada com abordagem de *grounding* e indexação de rótulos (substituindo ou refinando o motor de regras).
-2. Algoritmos preditivos de comportamento de indicadores baseados em séries históricas (Chen et al., 2013).
-3. Módulos operacionais avançados do dia a dia da incubadora (Seção 10 do checklist: agendamento com formulários automáticos de inscrição/presença, reserva inteligente de salas com Google Agenda, protocolo e agenda pública, submissões CAEX/DICOM, ofertas e demandas).
+### 4.2. Escopo das Etapas Posteriores (Ciclo Estendido até Mês 31)
+Funcionalidades planejadas para a evolução pós-homologação da primeira versão:
+1. Treinamento e avaliação da **Rede Neural** supervisionada com abordagem de *grounding* e indexação de rótulos semânticos.
+2. Algoritmos preditivos de comportamento de indicadores baseados em séries temporais históricas (Chen et al., 2013).
+3. Módulos operacionais avançados do dia a dia da incubadora (Seção 10 do checklist: agendamento com formulários automáticos de inscrição/presença, integração com Google Agenda, protocolo e agenda pública, submissões CAEX/DICOM, ofertas e demandas).
 4. Módulo completo de prototipagem do Laboratório Maker (MAKERBot) (Seção 11 do checklist: cálculo volumétrico de insumos, tempo de máquina, custeio, bloqueio de sigilo, manutenção preventiva e rotinas de G-code).
-5. Adaptação multi-incubadora e protocolo seguro de compartilhamento interinstitucional.
+5. Adaptação multi-incubadora e protocolo seguro de federação interinstitucional.
 6. Testes beta em campo operacional estendido no CEFET e NidusTec (UNIFAL-MG).
 7. Módulo completo de auditoria internacional e integração dos requisitos específicos do CERNE IV.
 8. Empacotamento formal e submissão do registro de software no INPI.
@@ -59,27 +61,28 @@ Funcionalidades que ficam para etapas posteriores caso o prazo da primeira vers�
 
 ### 5.1. Requisitos Funcionais (RF)
 
-* **RF01 – Ingestão de Dados por Planilhas:** O sistema deve coletar dados a partir de planilhas padronizadas (Google Sheets), estruturadas conforme as entidades de negócio (Ações, Startups Incubadas, Startups Graduadas, Parceiros).
-* **RF02 – Validação na Origem:** O sistema deve contar com scripts de validação em JavaScript (Google Apps Script) para verificação sintática e semântica prévia no ambiente da planilha antes da exportação.
+* **RF01 – Ingestão de Dados e Formulários Web:** O sistema deve fornecer formulários web intuitivos em Next.js para o cadastro direto de ações, startups, parceiros e evidências, mantendo funcionalidade de importação em lote via arquivos tabulares (CSV/Planilhas).
+* **RF02 – Validação na Origem:** O sistema deve executar validações sintáticas e semânticas tanto no cliente (React Hook Form + Zod) quanto na API backend (DTOs/Serializers e Domínio Rico) antes da persistência.
 * **RF03 – Rastreabilidade Temporal de Ações:** O sistema deve permitir o registro e recuperação de ações passadas, correntes e planejadas, suportando uma escala operacional superior a 100 ações por ano.
-* **RF04 – Mapeamento da Transversalidade:** O sistema deve permitir que um único registro de ação comprove simultaneamente duas ou mais práticas de diferentes níveis ou processos-chave (relação $1:N$).
-* **RF05 – Cálculo Automatizado de Indicadores Atômicos:** O sistema deve calcular automaticamente a quantidade e o status dos indicadores correspondentes a cada prática a partir das ações e evidências cadastradas, incluindo explicitamente práticas com zero evidências.
-* **RF06 – Cálculo de Similaridade e Interdependência (Equação [1]):** O sistema deve implementar o cálculo da distância euclidiana entre práticas a partir das TAGs associadas (Equação [1] do projeto), mapeando em tempo real como as práticas influenciam-se mutuamente no grafo.
-* **RF07 – Ponderação e Normalização Dinâmica:** O sistema deve calcular indicadores aplicando pesos variáveis conforme a hierarquia qualitativa do modelo, permitindo a revisão periódica dessas ponderações em ciclos de 12 meses.
+* **RF04 – Mapeamento da Transversalidade ($1:N$):** O sistema deve permitir que um único registro de ação comprove simultaneamente duas ou mais práticas de diferentes níveis ou processos-chave através de tabela associativa relacional.
+* **RF05 – Cálculo Automatizado de Indicadores Atômicos:** O sistema deve calcular automaticamente a quantidade e o status dos indicadores correspondentes a cada prática a partir das ações e evidências cadastradas, incluindo explicitamente práticas com zero evidências (via `LEFT JOIN` / agregação).
+* **RF06 – Cálculo de Similaridade e Interdependência (Equação [1]):** O sistema deve implementar o cálculo da distância euclidiana entre práticas a partir das TAGs associadas (Equação [1] do projeto), atualizando a matriz de influência e sinergia entre práticas.
+* **RF07 – Ponderação e Normalização Dinâmica:** O sistema deve calcular indicadores aplicando pesos variáveis conforme a hierarquia qualitativa do modelo, permitindo a parametrização dessas ponderações.
 * **RF08 – Classificação Assistida por TAGs:**
   * *Versão Inicial:* Motor de classificação determinístico com regras mapeando TAGs em linguagem simples às práticas correspondentes.
-  * *Versão Futura:* Rede neural de classificação supervisionada (grounding), sugerindo a prática e colhendo a confirmação ou ajuste da equipe.
-* **RF09 – Visualização Gráfica e Painel de Alertas:** A interface gráfica deve apresentar a listagem de práticas com indicadores quantitativos, destacar visualmente (por código de cores) práticas deficitárias e exibir a projeção de maturidade em gráficos do tipo radar por nível.
-* **RF10 – Relatórios Institucionais:** O sistema deve gerar relatórios consolidados alinhados às diretrizes formais de certificação do modelo CERNE.
-* **RF11 – Acesso Dedicado a Auditores:** O sistema deve prever permissão de acesso em modo somente leitura (*read-only*) para auditores externos do processo de certificação.
+  * *Versão Futura:* Rede neural de classificação supervisionada (*grounding*), sugerindo a prática e colhendo a confirmação ou ajuste da equipe.
+* **RF09 – Visualização Gráfica e Painel de Alertas:** A interface web deve apresentar a listagem de práticas com indicadores quantitativos, destacar visualmente (código de cores) práticas deficitárias e exibir a projeção de maturidade em gráficos do tipo radar interativos por nível.
+* **RF10 – Relatórios Institucionais:** O sistema deve gerar relatórios consolidados em formatos padrão (PDF/CSV) alinhados às diretrizes formais de certificação do modelo CERNE.
+* **RF11 – Acesso Dedicado a Auditores:** O sistema deve prever perfil de controle de acesso (RBAC) com permissão de somente leitura (*read-only*) para auditores externos do processo de certificação.
 
 ### 5.2. Requisitos Não Funcionais (RNF)
 
-* **RNF01 – Licenciamento Aberto:** O sistema deve ser desenvolvido exclusivamente com ferramentas, linguagens e bibliotecas *open-source*, sem custos de licenciamento proprietário.
-* **RNF02 – Execução em Ambiente Local:** O software (banco de dados e aplicação) deve rodar integralmente na máquina local do usuário, sem necessidade de servidores dedicados ou infraestrutura em nuvem nesta etapa.
-* **RNF03 – Isolamento e Segurança de Credenciais:** As credenciais de acesso ao banco de dados jamais devem constar no código-fonte ou no repositório de versionamento, devendo ser lidas via arquivo de configuração externo ou variáveis de ambiente.
-* **RNF04 – Privacidade e Não Exposição de Dados:** Dados pessoais de empreendedores e informações confidenciais de planos de negócio não devem ser commitados no repositório do projeto.
-* **RNF05 – Usabilidade Acessível (Linguagem de Senso Comum):** Os formulários de entrada de dados devem utilizar termos compreensíveis para colaboradores novatos, dispensando conhecimento aprofundado prévio das normas do CERNE para o registro de ações.
-* **RNF06 – Flexibilidade Estrutural (Desacoplamento do Modelo):** A representação dos níveis, processos e práticas deve ser tratada como nós e propriedades dinâmicas no banco em grafo, viabilizando a adaptação ao CERNE 2025 e versões futuras sem necessidade de recompilação do código.
-* **RNF07 – Integridade de Grafo e Não Duplicação:** As rotinas de ingestão e persistência devem garantir a inexistência de registros, nós ou propriedades redundantes no grafo.
-* **RNF08 – Backup e Resiliência Local:** O sistema deve dispor de procedimento e rotina clara de backup local regular e espelhamento da base de dados do Neo4j.
+* **RNF01 – Licenciamento Aberto:** O sistema deve ser desenvolvido exclusivamente com ferramentas, linguagens e bibliotecas *open-source* (Python, Django, PostgreSQL, Next.js, Tailwind, shadcn/ui), sem custos de licenciamento proprietário.
+* **RNF02 – Topologia Web Distribuída em Nuvem:** A solução deve operar desacoplada na nuvem: interface web na Vercel, backend REST no PythonAnywhere e banco de dados gerenciado no Neon PostgreSQL, permitindo acesso multiusuário via navegadores modernos.
+* **RNF03 – Arquitetura Limpa e Independência de Framework:** A arquitetura do backend deve seguir estritamente os princípios da **Clean Architecture**, mantendo a camada de Domínio pura e desacoplada do Django e do banco de dados.
+* **RNF04 – Design Orientado a Domínio (DDD) e Domínio Rico:** As entidades centrais do negócio devem encapsular suas próprias regras de validação, cálculos e estados, evitando o antipadrão de modelo de domínio anêmico.
+* **RNF05 – Metodologia TDD e Cobertura de Testes:** O desenvolvimento do domínio e dos casos de uso deve seguir o ciclo *Test-Driven Development*, mantendo cobertura mínima de testes unitários superior a 90% na camada de domínio.
+* **RNF06 – Segurança e Gestão de Segredos:** Credenciais de banco de dados (Neon connection string), chaves de API e variáveis de ambiente secretas jamais devem ser versionadas no código, sendo injetadas por variáveis de ambiente seguras na Vercel e no PythonAnywhere.
+* **RNF07 – Performance e Latência:** As respostas dos endpoints da API REST no PythonAnywhere devem responder em até 500ms para consultas operacionais típicas, utilizando connection pooling eficiente no Neon.
+* **RNF08 – Usabilidade Acessível (Linguagem de Senso Comum):** A interface desenvolvida com componentes shadcn/ui deve utilizar termos compreensíveis para colaboradores novatos, dispensando conhecimento aprofundado prévio das normas do CERNE para o registro de ações.
+* **RNF09 – Integridade Relacional e Não Duplicação:** As rotinas de ingestão e persistência devem garantir a inexistência de registros redundantes por meio de restrições de unicidade (`UNIQUE constraints`) e índices no PostgreSQL.
